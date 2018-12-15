@@ -29,6 +29,9 @@ class Router {
 		$controller = $executor[0];
 		$method     = $executor[1];
 
+		// TODO, try to make a require file here
+		// TODO use autoload
+
 		$controllerInstance = new $controller();
 
 		$params = [];

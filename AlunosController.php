@@ -15,3 +15,6 @@ class AlunosController {
 	}
 
 }
+
+
+class InvalidAlunoException extends Exception { }
