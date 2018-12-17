@@ -44,7 +44,7 @@ class Router {
 		}
 		else if($httpMethod == 'POST'){
 			$params = $_POST;
-			if(empty($params)) { // empty when payload came raw/binary
+			if( empty($params) ) { // empty when payload came raw/binary
 				$params = file_get_contents( "php://input" );
         		$params = json_decode( $params, true );
 			}
