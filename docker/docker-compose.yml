@@ -1,0 +1,32 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "2"
+services:
+
+    memcached:
+      image: memcached:alpine
+      container_name: free-machine-redis-memcached
+
+    redis:
+      image: redis:alpine
+      container_name: free-machine-redis-redis
+
+    webserver:
+      image: nginx:alpine
+      container_name: free-machine-redis-webserver
+      working_dir: /application
+      volumes:
+          - .:/application
+          - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      ports:
+       - "8888:80"
+
+    php-fpm:
+      build: phpdocker/php-fpm
+      container_name: free-machine-redis-php-fpm
+      working_dir: /application
+      volumes:
+        - .:/application
+        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+
