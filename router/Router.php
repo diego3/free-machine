@@ -1,7 +1,5 @@
 <?php 
-require_once 'RouteNotFoundException.php';
-require_once 'HttpMethodNotFoundException.php';
-require_once 'InvalidRouteException.php';
+
 
 class Router {
 	
@@ -51,3 +49,10 @@ class Router {
 		call_user_func_array([$controllerInstance, $method], [$params]);
 	}
 }
+
+
+class RouteNotFoundException extends Exception {}
+
+class InvalidRouteException extends Exception {}
+
+class HttpMethodNotFoundException extends Exception {}
