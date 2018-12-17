@@ -22,15 +22,34 @@ class Academy1ApiApp {
 			]
 		];
 		
+
+		$modules = [
+			1 => 'Interno',
+			2 => 'Cadastros',
+			3 => 'Pagamentos'
+		];
+
+		$aclModule = [
+			//this id can be a user profile/module too
+			1 => [
+				'/alunos' => [
+					'read'  => 'GET' 
+					'write' => 'POST|PUT|DELETE'
+				] 
+			],
+			2 => [
+				'/alunos' => [
+					'read'  => 'GET' 
+					'write' => 'POST|PUT'
+				] 
+			]
+		];
+
 		$acls = [
 			'/alunos' => [
 				'GET'  => true,
 				'POST' => false
 			]
-		];
-
-		$aclUser = [
-			1 => ['/alunos']
 		];
 
 		$acl = new Acl($acls);
