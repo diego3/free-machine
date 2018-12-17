@@ -2,7 +2,7 @@
 require_once 'router/Router.php';
 require_once 'auth/Acl.php';
 require_once 'auth/TokenApiAuth.php';
-require_once 'academy1/AlunosController.php';
+//require_once 'academy1/AlunosController.php';
 
 
 class Academy1ApiApp {
@@ -13,12 +13,12 @@ class Academy1ApiApp {
 
 		$routes = [
 			'/alunos' => [
-				'GET'  => 'AlunosController.get',
-				'POST' => 'AlunosController.post'
+				'GET'  => __DIR__.'/academy1/AlunosController->get',
+				'POST' => __DIR__.'/academy1/AlunosController->post'
 			],
 			'/professores' => [
-				'GET'  => 'ProfessoresController.get',
-				'POST' => 'ProfessoresController.post'
+				'GET'  => __DIR__.'/academy1/ProfessoresController->get',
+				'POST' => __DIR__.'/academy1/ProfessoresController->post'
 			]
 		];
 		
@@ -33,18 +33,28 @@ class Academy1ApiApp {
 			//this id can be a user profile/module too
 			1 => [
 				'/alunos' => [
-					'read'  => 'GET' 
+					'read'  => 'GET', 
 					'write' => 'POST|PUT|DELETE'
 				] 
 			],
 			2 => [
 				'/alunos' => [
-					'read'  => 'GET' 
+					'read'  => 'GET', 
 					'write' => 'POST|PUT'
 				] 
 			]
 		];
 
+		// usuario 57748 ver dados cadastrais dos alunos, não pode alterar nem apagar
+		$aclUser = [
+			57748 => [
+				'rules' => [
+					'/alunos' => [
+						'POST' => 'r'
+					]
+				]
+			]
+		];
 		$acls = [
 			'/alunos' => [
 				'GET'  => true,
@@ -58,7 +68,7 @@ class Academy1ApiApp {
 			Router::resolve($routes, $acl);
 		} catch (Exception $e) {
 			http_response_code($e->getCode());
-			echo json_encode(['error' => $e->getMessage()];
+			echo json_encode(['error' => $e->getMessage()]);
 		}
 
 

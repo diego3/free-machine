@@ -12,8 +12,13 @@ class AlunosController {
 	public function post($params){
 		echo __METHOD__.PHP_EOL;
 		var_dump($params);
+
+		// todo , return a link to a new resource
 	}
 
+	public function exampleAcl($params) {
+
+	}
 }
 
 

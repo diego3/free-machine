@@ -3,6 +3,7 @@
 
 class Router {
 	
+	const METHOD_SEPARATOR = '->';
 
 	public static function resolve(array $routes , $acl = null){
 		$uri        = $_SERVER['REQUEST_URI']; 
@@ -23,14 +24,19 @@ class Router {
 
 		$call = $routeConfig[$httpMethod];
 
-		$executor = explode('.', $call);
-		$controller = $executor[0];
-		$method     = $executor[1];
+		$executor = explode(Router::METHOD_SEPARATOR, $call);
+		$controllerFile = $executor[0];
+		$method     	= $executor[1];
+		$controllerClass = end(explode('/',$controllerFile));
 
-		// TODO, try to make a require file here
 		// TODO use autoload
+		if( !file_exists($controllerFile.'.php')) {
+			throw new ControllerNotFoundException(' Controller file ['.$controllerFile.'.php] not found.', 404);
+		}
+		
+		include_once $controllerFile.'.php';
 
-		$controllerInstance = new $controller();
+		$controllerInstance = new $controllerClass();
 
 		$params = [];
 		if($httpMethod == 'GET'){
@@ -42,8 +48,12 @@ class Router {
 			throw new InvalidRouteException(' Request method ['.$httpMethod.'] not implemented yet', 500);
 		}
 
+		// PUT
+		//$rest_json = file_get_contents( "php://input" );
+        //$_POST = json_decode( $rest_json, true );
+
 		if( !method_exists($controllerInstance, $method)){
-			throw new InvalidRouteException(' Controller method ['.$controller.'.'.$method.'] doesn\'t exist.', 404);
+			throw new ControllerMethodNotFoundException(' Controller method ['.$controllerClass.'.'.$method.'] doesn\'t exist.', 404);
 		}
 
 		call_user_func_array([$controllerInstance, $method], [$params]);
@@ -52,7 +62,7 @@ class Router {
 
 
 class RouteNotFoundException extends Exception {}
-
 class InvalidRouteException extends Exception {}
-
 class HttpMethodNotFoundException extends Exception {}
+class ControllerNotFoundException extends Exception {}
+class ControllerMethodNotFoundException extends Exception {}
