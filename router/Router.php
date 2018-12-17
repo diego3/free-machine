@@ -44,13 +44,18 @@ class Router {
 		}
 		else if($httpMethod == 'POST'){
 			$params = $_POST;
-		}else {
+			if(empty($params)) { // empty when payload came raw/binary
+				$params = file_get_contents( "php://input" );
+        		$params = json_decode( $params, true );
+			}
+		}
+		else if($httpMethod == 'PUT' || $httpMethod == 'DELETE'){
+			$params = file_get_contents( "php://input" );
+        	$params = json_decode( $params, true );
+		}
+		else {
 			throw new InvalidRouteException(' Request method ['.$httpMethod.'] not implemented yet', 500);
 		}
-
-		// PUT
-		//$rest_json = file_get_contents( "php://input" );
-        //$_POST = json_decode( $rest_json, true );
 
 		if( !method_exists($controllerInstance, $method)){
 			throw new ControllerMethodNotFoundException(' Controller method ['.$controllerClass.'.'.$method.'] doesn\'t exist.', 404);

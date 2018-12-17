@@ -13,8 +13,10 @@ class Academy1ApiApp {
 
 		$routes = [
 			'/alunos' => [
-				'GET'  => __DIR__.'/academy1/AlunosController->get',
-				'POST' => __DIR__.'/academy1/AlunosController->post'
+				'GET'  		=> __DIR__.'/academy1/AlunosController->get',
+				'POST'		=> __DIR__.'/academy1/AlunosController->post',
+				'PUT' 		=> __DIR__.'/academy1/AlunosController->put',
+				'DELETE'	=> __DIR__.'/academy1/AlunosController->delete'
 			],
 			'/professores' => [
 				'GET'  => __DIR__.'/academy1/ProfessoresController->get',
