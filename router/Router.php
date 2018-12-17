@@ -6,10 +6,10 @@ require_once 'InvalidRouteException.php';
 class Router {
 	
 
-	public static function resolve(array $routes){
+	public static function resolve(array $routes , $acl = null){
 		$uri        = $_SERVER['REQUEST_URI']; 
 		$httpMethod = $_SERVER['REQUEST_METHOD']; 
-
+		
 		$parsedUrl = parse_url($uri);
 		$uriPath   = $parsedUrl['path'];
 
