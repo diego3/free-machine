@@ -1,5 +1,5 @@
 <?php 
-
+namespace FreeMachine\Router;
 
 class Router {
 	
@@ -66,8 +66,8 @@ class Router {
 }
 
 
-class RouteNotFoundException extends Exception {}
-class InvalidRouteException extends Exception {}
-class HttpMethodNotFoundException extends Exception {}
-class ControllerNotFoundException extends Exception {}
-class ControllerMethodNotFoundException extends Exception {}
+class RouteNotFoundException extends \Exception {}
+class InvalidRouteException extends \Exception {}
+class HttpMethodNotFoundException extends \Exception {}
+class ControllerNotFoundException extends \Exception {}
+class ControllerMethodNotFoundException extends \Exception {}

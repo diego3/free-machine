@@ -1,5 +1,5 @@
 <?php 
-
+namespace FreeMachine\Auth;
 
 class Acl {
 

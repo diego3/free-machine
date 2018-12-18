@@ -1,4 +1,5 @@
 <?php 
+namespace FreeMachine\Auth;
 
 class TokenApiAuth {
 
