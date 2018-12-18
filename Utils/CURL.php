@@ -43,4 +43,4 @@ class CURL {
 	}
 }
 
-class CURLException extends Exception {}
+class CURLException extends \Exception {}

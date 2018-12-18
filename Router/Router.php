@@ -25,18 +25,10 @@ class Router {
 		$call = $routeConfig[$httpMethod];
 
 		$executor = explode(Router::METHOD_SEPARATOR, $call);
-		$controllerFile = $executor[0];
-		$method     	= $executor[1];
-		$controllerClass = end(explode('/',$controllerFile));
+		$controllerClass = $executor[0];
+		$method     	 = $executor[1];
 
-		// TODO use autoload
-		if( !file_exists($controllerFile.'.php')) {
-			throw new ControllerNotFoundException(' Controller file ['.$controllerFile.'.php] not found.', 404);
-		}
-		
-		include_once $controllerFile.'.php';
-
-		$controllerInstance = new $controllerClass();
+		$controllerInstance = new $controllerClass();// trigger autoloader
 
 		$params = [];
 		if($httpMethod == 'GET'){

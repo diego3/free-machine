@@ -37,4 +37,4 @@ class Acl {
 }
 
 
-class NoAclConfigException extends Exception {};
+class NoAclConfigException extends \Exception {};
