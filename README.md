@@ -5,7 +5,13 @@ just like a microservices.
 
 # Features and ideias
 * Http Router
-* Acl with reader and writer permissions
+* Acl with reader and writer permissions 
 * Consice and simple API error control 
-* Correct use of http codes
+* Correct use of http codes 
 * Rest API between system modules
+
+# Usefull 
+
+* https://www.restapitutorial.com/lessons/httpmethods.html
+* https://docs.zendframework.com/zend-permissions-acl/usage/
+* https://github.com/RestCheatSheet/api-cheat-sheet#api-design-cheat-sheet 
